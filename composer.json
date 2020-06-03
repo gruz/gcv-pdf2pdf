@@ -1,0 +1,23 @@
+{
+    "name": "gruz/gvc-pdf2pdf",
+    "description": "Overlay text from Google Vision Cloud (OCR) over the original PDF-as-image",
+    "type": "library",
+    "license": "GNU",
+    "authors": [
+        {
+            "name": "Gruz",
+            "email": "vongruz@protonmail.com"
+        }
+    ],
+    "require": {
+        "setasign/fpdf": "^1.8",
+        "setasign/fpdi": "^2.3",
+        "laravel/helpers": "^1.2",
+        "setasign/tfpdf": "^1.31"
+    },
+    "autoload": {
+        "psr-0": {
+            "GvcPdf2Pdf": "src/"
+        }
+    }
+}
