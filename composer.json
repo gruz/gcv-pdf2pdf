@@ -2,7 +2,7 @@
     "name": "gruz/gvc-pdf2pdf",
     "description": "Overlay text from Google Vision Cloud (OCR) over the original PDF-as-image",
     "type": "library",
-    "license": "GNU",
+    "license": "GPL-3.0-or-later",
     "authors": [
         {
             "name": "Gruz",
