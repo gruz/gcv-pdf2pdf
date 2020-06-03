@@ -33,7 +33,9 @@ class PdfTextApply
         $this->wordText->show = true;
         $this->wordText->color = [0, 0, 255];
         $this->wordText->opacity = 0.0;
-        $this->wordText->fontFamily = 'Arial';
+        $this->wordText->fontFamily = 'DejaVu';
+
+        // $pdf->SetFont('DejaVu','',14);
 
         return $this;
     }
@@ -58,6 +60,7 @@ class PdfTextApply
         $responses = Arr::get($json, 'responses');
 
         $pdf = new FPDFHelper('P', 'pt');
+        // $pdf->AddFont('DejaVu','','DejaVuSansCondensed.ttf',true);
 
         $pdf->setSourceFile($this->pdfSourceFile);
         list($r, $g, $b)  = $this->wordBox->color;
@@ -125,7 +128,9 @@ class PdfTextApply
                 $pdf->SetFont($this->wordText->fontFamily, null, 12);
                 $pdf->SetAlpha($this->wordText->opacity);
 
+                $pdf->SetFont('Arial');
                 $nb = $pdf->NbLines($w, $text);
+                $pdf->SetFont($this->wordText->fontFamily);
 
                 $pdf->SetFont($this->wordText->fontFamily, null, floor($h/$nb));
 

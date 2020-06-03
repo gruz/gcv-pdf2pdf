@@ -10,10 +10,9 @@
         }
     ],
     "require": {
-        "setasign/fpdf": "^1.8",
+        "setasign/tfpdf": "^1.31",
         "setasign/fpdi": "^2.3",
-        "laravel/helpers": "^1.2",
-        "setasign/tfpdf": "^1.31"
+        "laravel/helpers": "^1.2"
     },
     "autoload": {
         "psr-4": {

@@ -2,7 +2,7 @@
 
 namespace GvcPdf2Pdf;
 
-use setasign\Fpdi\Fpdi;
+use setasign\Fpdi\Tfpdf\Fpdi;
 use GvcPdf2Pdf\FPDFTraits\Alpha;
 use GvcPdf2Pdf\FPDFTraits\Rotate;
 
@@ -10,6 +10,12 @@ class FPDFHelper extends Fpdi
 {
     use Alpha;
     use Rotate;
+
+    public function __construct(...$args)
+    {
+        parent::__construct(...$args);
+        $this->AddFont('DejaVu','','DejaVuSansCondensed.ttf',true);
+    }
 
     /**
      * Computes the number of lines a MultiCell of width w will take

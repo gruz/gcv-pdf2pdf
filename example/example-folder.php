@@ -7,7 +7,7 @@ use GvcPdf2Pdf\PdfTextApply;
 /** 
  * This block is used for debug purposes
  * 
- * Enable debug to stop on any error while processing a folder.
+ * Enable debug to run only in selected in $stopNames base filenames.
  * You may also force to regenerate pereviously created files.
  */
 $regenerate = false;
@@ -21,9 +21,11 @@ $stopNames = [
     // '384-175003-2005',
     // '356-724043-2005',
     // '190-721628-2005A',
-    '384-179450-2005C',
+    // '384-179450-2005C',
 ];
 // Error handler to thrown an exception on any php notice
+// I make it work to exit on any PHP notice while processing a folder.
+// I assume if there is a php notice, then something is wrong and must be fixed.
 if (!$debug) {
     function exception_error_handler($severity, $message, $file, $line) {
         if (!(error_reporting() & $severity)) {
