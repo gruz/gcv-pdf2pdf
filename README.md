@@ -26,8 +26,8 @@ To get the idea see a video demonstrating results [https://streamable.com/r2gyk9
 > Surely you need PHP.
 
 ```bash
-git clone ...
-cd folder
+git clone git@github.com:gruz/gcv-pdf2pdf.git
+cd gcv-pdf2pdf
 composer install
 
 ```
@@ -56,6 +56,8 @@ Go to the project folder if not there and run
 php example/example.php
 ```
 
+This will (renerate) `example/01-out-pdf-with-text-hidden.pdf` and `example/01-out-pdf-with-text-visible-for-debug.pdf` files.
+
 ### Folder
 
 Go to the project folder if not there and run
@@ -63,5 +65,7 @@ Go to the project folder if not there and run
 ```bash
 php example/example-folder.php
 ```
+
+It uses files pairs placed in `example/in/` and generates output to `example/out/`
 
 As a result you get regenerated out pdfs.
