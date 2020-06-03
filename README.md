@@ -32,16 +32,6 @@ composer install
 
 ```
 
-## Running example
-
-Go to the project folder if not there and run
-
-```bash
-php example/example.php
-```
-
-As a result you get regenerated out pdfs.
-
 ## Usage
 
 ```php
@@ -55,3 +45,23 @@ $pdfOutFile1 = __DIR__ .'/01-out-pdf-with-text-hidden.pdf';
 $pdf = new PdfTextApply($jsonFile, $pdfSourceFile, $pdfOutFile1);
 $pdf->run();
 ```
+
+## Running example
+
+### Singe file
+
+Go to the project folder if not there and run
+
+```bash
+php example/example.php
+```
+
+### Folder
+
+Go to the project folder if not there and run
+
+```bash
+php example/example-folder.php
+```
+
+As a result you get regenerated out pdfs.
