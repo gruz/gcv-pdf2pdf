@@ -35,8 +35,6 @@ class PdfTextApply
         $this->wordText->opacity = 0.0;
         $this->wordText->fontFamily = 'DejaVu';
 
-        // $pdf->SetFont('DejaVu','',14);
-
         return $this;
     }
 
