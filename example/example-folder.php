@@ -4,19 +4,26 @@ require_once __DIR__ . '/../vendor/autoload.php'; // Autoload files using Compos
 
 use GvcPdf2Pdf\PdfTextApply;
 
-$regenerate = true;
+/** 
+ * This block is used for debug purposes
+ * 
+ * Enable debug to stop on any error while processing a folder.
+ * You may also force to regenerate pereviously created files.
+ */
 $regenerate = false;
+$regenerate = true;
 
 $debug = true;
 $debug = false;
 
-
+// If enabled debug, I can process only selected basenames if files.
 $stopNames = [
     // '384-175003-2005',
     // '356-724043-2005',
     // '190-721628-2005A',
     '384-179450-2005C',
 ];
+// Error handler to thrown an exception on any php notice
 if (!$debug) {
     function exception_error_handler($severity, $message, $file, $line) {
         if (!(error_reporting() & $severity)) {
@@ -28,8 +35,6 @@ if (!$debug) {
     set_error_handler("exception_error_handler");
 }
 
-
-// chdir('jsons');
 $folderIn = __DIR__.'/in/';
 $folderOut = __DIR__.'/out/';
 $files = glob($folderIn.'*.pdf');
@@ -64,7 +69,6 @@ foreach ($files as $c  => $pdfFilePath) {
         } catch (\Throwable $th) {
             echo PHP_EOL . "\t" . $name . ' : ' . PHP_EOL . $th->getMessage() . PHP_EOL;
             exit;
-            //throw $th;
         }
     }
 }
