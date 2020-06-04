@@ -25,6 +25,14 @@ To get the idea see a video demonstrating results [https://streamable.com/r2gyk9
 
 > Surely you need PHP.
 
+To use in your project:
+
+```bash
+composer require gruz/gvc-pdf2pdf
+```
+
+OR
+
 ```bash
 git clone git@github.com:gruz/gcv-pdf2pdf.git
 cd gcv-pdf2pdf
