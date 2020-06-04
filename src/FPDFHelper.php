@@ -17,6 +17,19 @@ class FPDFHelper extends Fpdi
     }
 
     /**
+     * Overrides native method to remove PDF time not to track similar PDFs by git as new ones due to in-PDF date change
+     *
+     * @return void
+     */
+    protected function _putinfo()
+    {
+    	$this->metadata['Producer'] = 'tFPDF '.tFPDF_VERSION;
+    	// $this->metadata['CreationDate'] = 'D:'.@date('YmdHis');
+    	foreach($this->metadata as $key=>$value)
+    		$this->_put('/'.$key.' '.$this->_textstring($value));
+    }
+
+    /**
      * Computes the number of lines a MultiCell of width w will take
      *
      * @param float $w pt
