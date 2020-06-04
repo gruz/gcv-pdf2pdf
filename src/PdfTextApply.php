@@ -169,21 +169,25 @@ class PdfTextApply
     public function showWatermark($pdf, $width, $height)
     {
         if ($this->watermark->show) {
-            if ($width >= $height) {
-                $fontSize = floor($height*0.25);
-            } else {
-                $fontSize = floor($width*0.25);
-                // $fontSize = floor($height*0.125);
-            }
+            $fontSize = floor($height*0.25);
+            $angle = $this->getAngleFromPoints(
+                [
+                    ['x' => 0, 'y' => 0],
+                    ['x' => $width, 'y' => 0],
+                ],[
+                    ['x' => 0, 'y' => 0],
+                    ['x' => $width, 'y' => $height],
+                ]
+            );
             list($r,$g,$b) = $this->watermark->color;
-            $pdf->SetXY(0, $height/2);
+            $watermarkWidth = hypot($height, $width)*0.8;
+
+            $pdf->SetXY($watermarkWidth*0.1, 0);
             $pdf->SetFillColor($r, $g, $b);
             $pdf->SetAlpha($this->watermark->opacity);
-            $pdf->Rotate('45', $width/2, $height/2);
+            $pdf->Rotate(-$angle, 0, 0);
             $pdf->SetFont($this->wordText->fontFamily, null, $fontSize);
-            // $pdf->CellFitScale($width, 0, $this->watermark->text);
-            // $hypot = hypot($width, $height);
-            $pdf->CellFitScaleForce($width, 0, $this->watermark->text);
+            $pdf->CellFitScaleForce($watermarkWidth, 0, $this->watermark->text);
             $pdf->Rotate(0);
         }
     }
@@ -228,7 +232,7 @@ class PdfTextApply
         }
 
         // if ($textWidth > $w*$coef) {
-        //     $fontSize *= 1.5; 
+        //     $fontSize *= 1.5;
         // }
 
         while($textWidth > $w*$coef) {
