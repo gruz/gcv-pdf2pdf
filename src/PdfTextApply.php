@@ -20,6 +20,7 @@ class PdfTextApply
     public function __construct($jsonFile, $pdfSourceFile, $pdfOutputFile)
     {
         $this->jsonFile = $jsonFile;
+        $this->jsonFileIsPath = true;
         $this->pdfSourceFile = $pdfSourceFile;
         $this->pdfOutputFile = $pdfOutputFile;
 
@@ -61,7 +62,11 @@ class PdfTextApply
 
     public function run()
     {
-        $json = json_decode(file_get_contents($this->jsonFile), true);
+        if ($this->jsonFileIsPath) {
+            $json = json_decode(file_get_contents($this->jsonFile), true);
+        } else {
+            $json = json_decode($this->jsonFile, true);
+        }
 
         $responses = Arr::get($json, 'responses');
 
