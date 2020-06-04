@@ -22,7 +22,7 @@ $stopNames = [
     // '356-724043-2005',
     // '190-721628-2005A',
     // '384-179450-2005C',
-    '347-726418-2005',
+    // '347-726418-2005',
 ];
 // Error handler to thrown an exception on any php notice
 // I make it work to exit on any PHP notice while processing a folder.

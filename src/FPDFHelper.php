@@ -3,13 +3,12 @@
 namespace GvcPdf2Pdf;
 
 use setasign\Fpdi\Tfpdf\Fpdi;
-use GvcPdf2Pdf\FPDFTraits\Alpha;
-use GvcPdf2Pdf\FPDFTraits\Rotate;
 
 class FPDFHelper extends Fpdi
 {
-    use Alpha;
-    use Rotate;
+    use FPDFTraits\Alpha;
+    use FPDFTraits\Rotate;
+    use FPDFTraits\CellFit;
 
     public function __construct(...$args)
     {

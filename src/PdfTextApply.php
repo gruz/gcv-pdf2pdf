@@ -32,6 +32,7 @@ class PdfTextApply
         $this->wordText = new \stdClass();
         $this->wordText->show = true;
         $this->wordText->color = [0, 0, 255];
+        $this->wordText->fill = false;
         $this->wordText->opacity = 0.0;
         $this->wordText->fontFamily = 'DejaVu';
 
@@ -86,12 +87,15 @@ class PdfTextApply
             $pdf->useTemplate($tpl, 0, 0, null, null, true);
 
             foreach ($paragraphs as $paragraph) {
-                // if (!empty($paragraph['coords'][0]['x'])) continue;
                 // print_r($paragraph['coords']);
 
-                $text = $paragraph['text'];
+                $text = trim($paragraph['text']);
+                if (empty($text)) {
+                    continue;
+                }
+
                 $this->text = $text;
-// if ('kiwico.com/store' !== trim($text)) { continue;}
+                // if ('kiwico.com/store' !== trim($text)) { continue;}
                 $coords = $this->getFigureParams($paragraph['coords'], $width, $height);
                 // print_r($coords);
 
@@ -103,19 +107,13 @@ class PdfTextApply
                 $ys = $coords['startY'];
                 $w = $coords['w'];
                 $h = $coords['h'];
-// if ($h == 0) {
-//     print_r($paragraph['coords']);
-//     print_r($coords);
-//     exit;
-// }
+
                 $angle = $coords['rotate'];
 
                 if ($this->wordBox->show) {
                     $pdf->SetAlpha($this->wordBox->opacity);
                     $pdf->Rect($xs, $ys, $w, $h, 'DF');
                 }
-
-
 
                 // echo '$text = ' . $text . ' | $xs = ' . $xs . ' | $ys = ' . $ys;
 
@@ -128,17 +126,25 @@ class PdfTextApply
 
                 $pdf->SetFont('Arial');
                 $nb = $pdf->NbLines($w, $text);
-                $pdf->SetFont($this->wordText->fontFamily);
 
                 $pdf->SetFont($this->wordText->fontFamily, null, floor($h/$nb));
-
-                $fontSize = $this->adjustFontSize($pdf, $w, $h/$nb, $text);
+                if ($nb === 1) {
+                    $multiCell = false;
+                } else {
+                    $multiCell = true;
+                    $fontSize = $this->adjustFontSize($pdf, $w, $h/$nb, $text);
+                }
 
                 // echo $nb  . '|' . $h/$nb . '|font-size = ' . $fontSize . ' | h = ' . $h . ' | w = ' . $w . '|' . $text . PHP_EOL;
 
                 $pdf->SetXY($xs, $ys);
                 $pdf->Rotate($angle,$xs,$ys);
-                $pdf->MultiCell($w, $h/$nb, $text, 1, 'L', true);
+                // $pdf->Cell($w, $h/$nb, $text, 1, null, 'L', true);
+                // $pdf->CellFit($w, $h/$nb, $text, 1, null, 'L', true);
+
+
+                $pdf->CellFitScaleForce($w, $h/$nb,$text,1,null,null,$this->wordText->fill,null,$multiCell);
+                // $pdf->MultiCell($w, $h/$nb, $text, 1, 'L', true);
                 $pdf->Rotate(0);
             }
         }
