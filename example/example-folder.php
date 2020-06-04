@@ -43,8 +43,10 @@ $folderOut = __DIR__.'/out/';
 $files = glob($folderIn.'*.pdf');
 $total = count($files);
 
+$timeSpents = [];
 foreach ($files as $c  => $pdfFilePath) {
     $name = basename($pdfFilePath, '.pdf');
+    $rustart = getrusage();
 
     // if ($c > 3) exit;
 
@@ -68,7 +70,13 @@ foreach ($files as $c  => $pdfFilePath) {
                 $pdf->showText()->run();
             }
 
-            echo ' DONE' . PHP_EOL;
+            $ruend = getrusage();
+
+            $timeSpent = $ruend["ru_utime.tv_sec"] - $rustart["ru_utime.tv_sec"];
+            $timeSpents[] = $timeSpent;
+            $averageTime = round(array_sum($timeSpents) / ($c+1), 2);
+
+            echo ' DONE. Spent seconds :' . $timeSpent . '. Average time seconds:  ' . $averageTime . PHP_EOL;
         } catch (\Throwable $th) {
             echo PHP_EOL . "\t" . $name . ' : ' . PHP_EOL . $th->getMessage() . PHP_EOL;
             exit;
