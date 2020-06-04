@@ -36,6 +36,13 @@ class PdfTextApply
         $this->wordText->opacity = 0.0;
         $this->wordText->fontFamily = 'DejaVu';
 
+        $this->watermark = new \stdClass;
+        $this->watermark->show = true;
+        $this->watermark->color = [20,20,20];
+        $this->watermark->opacity = 0.1;
+        $this->watermark->fontFamily = $this->wordText->fontFamily;
+        $this->watermark->text = 'e x a m p l e . c o m';
+
         return $this;
     }
 
@@ -147,9 +154,33 @@ class PdfTextApply
                 // $pdf->MultiCell($w, $h/$nb, $text, 1, 'L', true);
                 $pdf->Rotate(0);
             }
+
+            $this->showWatermark($pdf, $width, $height);
         }
 
         $pdf->Output($this->pdfOutputFile, 'F');
+    }
+
+    public function showWatermark($pdf, $width, $height)
+    {
+        if ($this->watermark->show) {
+            if ($width >= $height) {
+                $fontSize = floor($height*0.25);
+            } else {
+                $fontSize = floor($width*0.25);
+                // $fontSize = floor($height*0.125);
+            }
+            list($r,$g,$b) = $this->watermark->color;
+            $pdf->SetXY(0, $height/2);
+            $pdf->SetFillColor($r, $g, $b);
+            $pdf->SetAlpha($this->watermark->opacity);
+            $pdf->Rotate('45', $width/2, $height/2);
+            $pdf->SetFont($this->wordText->fontFamily, null, $fontSize);
+            // $pdf->CellFitScale($width, 0, $this->watermark->text);
+            // $hypot = hypot($width, $height);
+            $pdf->CellFitScaleForce($width, 0, $this->watermark->text);
+            $pdf->Rotate(0);
+        }
     }
 
     /**

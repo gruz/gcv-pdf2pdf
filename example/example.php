@@ -9,6 +9,7 @@ $pdfSourceFile = __DIR__ .'/01-in-pdf-as-image.pdf';
 
 $pdfOutFile1 = __DIR__ .'/01-out-pdf-with-text-hidden.pdf';
 $pdf = new PdfTextApply($jsonFile, $pdfSourceFile, $pdfOutFile1);
+$pdf->watermark->text = 'g r u z . m l';
 $pdf->run();
 
 $pdfOutFile2 = __DIR__ .'/01-out-pdf-with-text-visible-for-debug.pdf';

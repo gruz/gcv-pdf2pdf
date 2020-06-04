@@ -34,6 +34,8 @@ composer install
 
 ## Usage
 
+Check the code, usage is obvious. For quick start:
+
 ```php
 
 use GvcPdf2Pdf\PdfTextApply;
@@ -43,6 +45,7 @@ $pdfSourceFile = __DIR__ .'/01-in-pdf-as-image.pdf';
 
 $pdfOutFile1 = __DIR__ .'/01-out-pdf-with-text-hidden.pdf';
 $pdf = new PdfTextApply($jsonFile, $pdfSourceFile, $pdfOutFile1);
+$pdf->watermark->text = 'gruz.ml';
 $pdf->run();
 ```
 
