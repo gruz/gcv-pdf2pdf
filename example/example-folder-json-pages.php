@@ -2,7 +2,6 @@
 
 require_once __DIR__ . '/../vendor/autoload.php'; // Autoload files using Composer autoload
 
-use Illuminate\Support\Arr;
 use GvcPdf2Pdf\PdfTextApply;
 
 /**
@@ -17,14 +16,6 @@ $regenerate = true;
 $debug = false;
 $debug = true;
 
-// If enabled debug, I can process only selected basenames if files.
-$stopNames = [
-    // '384-175003-2005',
-    // '356-724043-2005',
-    // '190-721628-2005A',
-    // '384-179450-2005C',
-    // '347-726418-2005',
-];
 // Error handler to thrown an exception on any php notice
 // I make it work to exit on any PHP notice while processing a folder.
 // I assume if there is a php notice, then something is wrong and must be fixed.
@@ -67,10 +58,6 @@ $timeSpents = [];
 foreach ($files as $c  => $pdfFilePath) {
     $name = basename($pdfFilePath, '.pdf');
     $rustart = getrusage();
-
-    // if ($c > 3) exit;
-
-    // if ($debug && !in_array($name, $stopNames)) continue;
 
     prepareSolidJsonFile($folderIn . $name);
 
