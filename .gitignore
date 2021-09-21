@@ -5,3 +5,5 @@ example/out/*
 !*190-721628-2005*
 !*190-721628-2005A*
 !*255-637190-2005*
+!example/in/per-page*
+!example/out/per-page*
